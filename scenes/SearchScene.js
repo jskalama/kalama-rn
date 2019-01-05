@@ -3,12 +3,8 @@ import {
     Container,
     Content,
     Text,
-    Card,
     Header,
-    Body,
     Button,
-    Title,
-    CardItem,
     Item,
     Icon,
     Input

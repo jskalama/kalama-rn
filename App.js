@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import AppRouter from './AppRouter';
-export default class AnatomyExample extends Component {
+import { Provider } from 'react-redux';
+import store from './store';
+
+export default class App extends Component {
     render() {
-        return <AppRouter />;
+        return (
+            <Provider store={store}>
+                <AppRouter />
+            </Provider>
+        );
     }
 }
