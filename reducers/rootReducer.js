@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import { searchReducer } from '../ducks/SearchDuck';
 
 export default combineReducers({
-    a: (state = {}) => state
+    search: searchReducer
 });

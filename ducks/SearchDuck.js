@@ -1,8 +1,9 @@
-import { createActions } from 'redux-actions';
+import { createActions, handleActions } from 'redux-actions';
 
-export const actions = createActions({
+export const searchActions = createActions({
     Search: {
-        SEARCH: {
+        QUERY: {
+            RUN: q => ({ q }),
             PENDING: () => {},
             SUCCESS: results => results,
             FAIL: error => error
@@ -14,3 +15,19 @@ export const actions = createActions({
         }
     }
 });
+
+export const searchReducer = handleActions(
+    new Map([
+        [
+            searchActions.search.query.success,
+            (state, { payload }) => ({
+                queryResult: payload
+            })
+        ]
+    ]),
+    {
+        queryResult: { artists: [], albums: [], songs: [] }
+    }
+);
+
+export const queryResultSelector = state => state.search.queryResult;
