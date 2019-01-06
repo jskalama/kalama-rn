@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
-import { Card, CardItem, Body, Text } from 'native-base';
+import {
+    Card,
+    ListItem,
+    Body,
+    Text,
+    List,
+    Left,
+    Right,
+    Thumbnail
+} from 'native-base';
 
 const QueryResult = ({ header, items }) => (
-    <Card>
-        <CardItem header bordered>
-            {header}
-        </CardItem>
+    <>
+        <ListItem itemHeader>{header}</ListItem>
         {items.map((item, i) => (
-            <CardItem bordered key={i}>
+            <ListItem thumbnail key={i}>
+                <Left>
+                    {item.image ? (
+                        <Thumbnail source={{ uri: item.image }} />
+                    ) : null}
+                </Left>
+
                 <Body>
                     <Text>{item.label}</Text>
                 </Body>
-            </CardItem>
+                <Right />
+            </ListItem>
         ))}
-    </Card>
+    </>
 );
 
 export default ({ items: { artists, albums, songs } }) => (
-    <>
+    <List>
         {artists.length ? (
             <QueryResult header={<Text>Artists</Text>} items={artists} />
         ) : null}
@@ -27,5 +41,5 @@ export default ({ items: { artists, albums, songs } }) => (
         {songs.length ? (
             <QueryResult header={<Text>Songs</Text>} items={songs} />
         ) : null}
-    </>
+    </List>
 );
