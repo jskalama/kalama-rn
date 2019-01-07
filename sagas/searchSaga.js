@@ -6,6 +6,9 @@ import { Actions } from 'react-native-router-flux';
 
 function* onSearchQueryRun({ payload: { q } }) {
     yield delay(600);
+    if (!q || q.trim().length === 0) {
+        return;
+    }
     try {
         yield put(searchActions.search.query.pending());
         const res = yield call(search, q);
@@ -16,6 +19,7 @@ function* onSearchQueryRun({ payload: { q } }) {
 }
 function* onSearchGetAlbumsRun({ payload: { artist } }) {
     try {
+        yield put(searchActions.search.clearAlbums());
         yield call(Actions.albums);
         yield put(searchActions.search.getAlbums.pending());
         const res = yield call(getArtistAlbumsList, artist);

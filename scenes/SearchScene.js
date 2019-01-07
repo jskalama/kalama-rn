@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Header, Item, Icon, Input } from 'native-base';
+import {
+    Container,
+    Content,
+    Header,
+    Item,
+    Icon,
+    Input,
+    Spinner
+} from 'native-base';
 import { bindActionCreators } from 'redux';
-import { searchActions, queryResultSelector } from '../ducks/SearchDuck';
+import {
+    searchActions,
+    queryResultSelector,
+    isQueryPendingSelector
+} from '../ducks/SearchDuck';
 import QueryResultsList from '../components/QueryResultsList';
 
 class SearchScene extends Component {
     render() {
         const {
-            props: { searchGetAlbumsRun, searchQueryRun, queryResult }
+            props: {
+                searchGetAlbumsRun,
+                searchQueryRun,
+                queryResult,
+                isQueryPending
+            }
         } = this;
         return (
             <Container>
@@ -24,6 +41,7 @@ class SearchScene extends Component {
                     </Item>
                 </Header>
                 <Content padder>
+                    {isQueryPending ? <Spinner /> : null}
                     <QueryResultsList
                         items={queryResult}
                         onGetAlbums={searchGetAlbumsRun}
@@ -36,7 +54,8 @@ class SearchScene extends Component {
 
 export default connect(
     state => ({
-        queryResult: queryResultSelector(state)
+        queryResult: queryResultSelector(state),
+        isQueryPending: isQueryPendingSelector(state)
     }),
     dispatch =>
         bindActionCreators(

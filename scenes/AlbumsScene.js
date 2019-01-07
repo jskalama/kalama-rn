@@ -12,17 +12,22 @@ import {
     Left,
     Body,
     Title,
-    Right
+    Right,
+    Spinner
 } from 'native-base';
 import { bindActionCreators } from 'redux';
-import { searchActions, albumsListSelector } from '../ducks/SearchDuck';
+import {
+    searchActions,
+    albumsListSelector,
+    isGetAlbumsPendingSelector
+} from '../ducks/SearchDuck';
 import { Actions } from 'react-native-router-flux';
 import AlbumsList from '../components/AlbumsList';
 
 class AlbumsScene extends Component {
     render() {
         const {
-            props: { albumsList }
+            props: { albumsList, isGetAlbumsPending }
         } = this;
         return (
             <Container>
@@ -37,6 +42,7 @@ class AlbumsScene extends Component {
                     </Body>
                 </Header>
                 <Content padder>
+                    {isGetAlbumsPending ? <Spinner /> : null}
                     <AlbumsList items={albumsList} />
                 </Content>
             </Container>
@@ -46,7 +52,8 @@ class AlbumsScene extends Component {
 
 export default connect(
     state => ({
-        albumsList: albumsListSelector(state)
+        albumsList: albumsListSelector(state),
+        isGetAlbumsPending: isGetAlbumsPendingSelector(state)
     }),
     dispatch => bindActionCreators({}, dispatch)
 )(AlbumsScene);
