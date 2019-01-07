@@ -10,16 +10,20 @@ import {
     Thumbnail
 } from 'native-base';
 
-const QueryResult = ({ header, items }) => (
+const QueryResult = ({ header, items, defaultThumbnail, noThumbnail }) => (
     <>
         <ListItem itemHeader>{header}</ListItem>
         {items.map((item, i) => (
-            <ListItem thumbnail key={i}>
-                <Left>
-                    {item.image ? (
-                        <Thumbnail source={{ uri: item.image }} />
-                    ) : null}
-                </Left>
+            <ListItem thumbnail={!noThumbnail} key={i}>
+                {noThumbnail ? null : (
+                    <Left>
+                        {item.image ? (
+                            <Thumbnail small source={{ uri: item.image }} />
+                        ) : (
+                            <Thumbnail small source={defaultThumbnail} />
+                        )}
+                    </Left>
+                )}
 
                 <Body>
                     <Text>{item.label}</Text>
@@ -33,13 +37,25 @@ const QueryResult = ({ header, items }) => (
 export default ({ items: { artists, albums, songs } }) => (
     <List>
         {artists.length ? (
-            <QueryResult header={<Text>Artists</Text>} items={artists} />
+            <QueryResult
+                header={<Text>Artists</Text>}
+                items={artists}
+                defaultThumbnail={require('./default-artist.png')}
+            />
         ) : null}
         {albums.length ? (
-            <QueryResult header={<Text>Albums</Text>} items={albums} />
+            <QueryResult
+                header={<Text>Albums</Text>}
+                items={albums}
+                defaultThumbnail={require('./default-album.png')}
+            />
         ) : null}
         {songs.length ? (
-            <QueryResult header={<Text>Songs</Text>} items={songs} />
+            <QueryResult
+                noThumbnail
+                header={<Text>Songs</Text>}
+                items={songs}
+            />
         ) : null}
     </List>
 );
