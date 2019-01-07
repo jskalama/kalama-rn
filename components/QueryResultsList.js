@@ -14,6 +14,7 @@ const QueryResult = ({
     header,
     items,
     defaultThumbnail,
+    squareThumbnail = false,
     noThumbnail,
     onItemTap
 }) => (
@@ -28,9 +29,17 @@ const QueryResult = ({
                 {noThumbnail ? null : (
                     <Left>
                         {item.image ? (
-                            <Thumbnail small source={{ uri: item.image }} />
+                            <Thumbnail
+                                square={squareThumbnail}
+                                small
+                                source={{ uri: item.image }}
+                            />
                         ) : (
-                            <Thumbnail small source={defaultThumbnail} />
+                            <Thumbnail
+                                square={squareThumbnail}
+                                small
+                                source={defaultThumbnail}
+                            />
                         )}
                     </Left>
                 )}
@@ -59,6 +68,7 @@ export default ({ items: { artists, albums, songs }, onGetAlbums }) => (
                 header={<Text>Albums</Text>}
                 items={albums}
                 defaultThumbnail={require('./default-album.png')}
+                squareThumbnail
             />
         ) : null}
         {songs.length ? (

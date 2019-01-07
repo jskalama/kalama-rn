@@ -6,14 +6,7 @@ export default ({ items }) => (
         {items.map((item, i) => (
             <ListItem thumbnail key={i}>
                 <Left>
-                    {item.image ? (
-                        <Thumbnail small source={{ uri: item.image }} />
-                    ) : (
-                        <Thumbnail
-                            small
-                            source={require('./default-album.png')}
-                        />
-                    )}
+                    <Thumbnail square small source={{ uri: item.image }} />
                 </Left>
                 <Body>
                     <Text>{item.label}</Text>
