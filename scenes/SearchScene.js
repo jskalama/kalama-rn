@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-    Container,
-    Content,
-    Text,
-    Header,
-    Button,
-    Item,
-    Icon,
-    Input
-} from 'native-base';
-import { Actions } from 'react-native-router-flux';
+import { Container, Content, Header, Item, Icon, Input } from 'native-base';
 import { bindActionCreators } from 'redux';
 import { searchActions, queryResultSelector } from '../ducks/SearchDuck';
 import QueryResultsList from '../components/QueryResultsList';
@@ -18,7 +8,7 @@ import QueryResultsList from '../components/QueryResultsList';
 class SearchScene extends Component {
     render() {
         const {
-            props: { searchQueryRun, queryResult }
+            props: { searchGetAlbumsRun, searchQueryRun, queryResult }
         } = this;
         return (
             <Container>
@@ -34,8 +24,10 @@ class SearchScene extends Component {
                     </Item>
                 </Header>
                 <Content padder>
-                    <QueryResultsList items={queryResult} />
-                    {/* <Text>{JSON.stringify(queryResult, false, 2)}</Text> */}
+                    <QueryResultsList
+                        items={queryResult}
+                        onGetAlbums={searchGetAlbumsRun}
+                    />
                 </Content>
             </Container>
         );
@@ -49,7 +41,8 @@ export default connect(
     dispatch =>
         bindActionCreators(
             {
-                searchQueryRun: searchActions.search.query.run
+                searchQueryRun: searchActions.search.query.run,
+                searchGetAlbumsRun: searchActions.search.getAlbums.run
             },
             dispatch
         )

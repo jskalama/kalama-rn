@@ -10,11 +10,21 @@ import {
     Thumbnail
 } from 'native-base';
 
-const QueryResult = ({ header, items, defaultThumbnail, noThumbnail }) => (
+const QueryResult = ({
+    header,
+    items,
+    defaultThumbnail,
+    noThumbnail,
+    onItemTap
+}) => (
     <>
         <ListItem itemHeader>{header}</ListItem>
         {items.map((item, i) => (
-            <ListItem thumbnail={!noThumbnail} key={i}>
+            <ListItem
+                thumbnail={!noThumbnail}
+                key={i}
+                onPress={() => onItemTap(item)}
+            >
                 {noThumbnail ? null : (
                     <Left>
                         {item.image ? (
@@ -34,13 +44,14 @@ const QueryResult = ({ header, items, defaultThumbnail, noThumbnail }) => (
     </>
 );
 
-export default ({ items: { artists, albums, songs } }) => (
+export default ({ items: { artists, albums, songs }, onGetAlbums }) => (
     <List>
         {artists.length ? (
             <QueryResult
                 header={<Text>Artists</Text>}
                 items={artists}
                 defaultThumbnail={require('./default-artist.png')}
+                onItemTap={item => onGetAlbums(item)}
             />
         ) : null}
         {albums.length ? (
