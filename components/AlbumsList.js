@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
-import { List, ListItem, Left, Thumbnail, Body, Text } from 'native-base';
+import { Body, Left, List, ListItem, Text, Thumbnail } from 'native-base';
+import React from 'react';
+const defaultThumbnail = require('./default-album.png');
 
-export default ({ items }) => (
+export default ({ items, onItemTap }) => (
     <List>
         {items.map((item, i) => (
-            <ListItem thumbnail key={i}>
+            <ListItem onPress={() => onItemTap(item)} thumbnail key={i}>
                 <Left>
-                    <Thumbnail square small source={{ uri: item.image }} />
+                    <Thumbnail
+                        square
+                        small
+                        defaultSource={defaultThumbnail}
+                        source={{ uri: item.image }}
+                    />
                 </Left>
                 <Body>
                     <Text>{item.label}</Text>

@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
 import {
-    Card,
-    ListItem,
     Body,
-    Text,
-    List,
     Left,
+    List,
+    ListItem,
     Right,
+    Text,
     Thumbnail
 } from 'native-base';
+import React from 'react';
 
 const QueryResult = ({
     header,
