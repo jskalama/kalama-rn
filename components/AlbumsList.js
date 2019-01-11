@@ -12,6 +12,7 @@ export default ({ items, onItemTap }) => (
                         small
                         defaultSource={defaultThumbnail}
                         source={{ uri: item.image }}
+                        resizeMethod="resize"
                     />
                 </Left>
                 <Body>
