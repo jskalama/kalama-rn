@@ -22,6 +22,7 @@ class SearchScene extends Component {
         const {
             props: {
                 searchGetAlbumsRun,
+                searchGetTracksRun,
                 searchQueryRun,
                 queryResult,
                 isQueryPending
@@ -45,6 +46,7 @@ class SearchScene extends Component {
                     <QueryResultsList
                         items={queryResult}
                         onGetAlbums={searchGetAlbumsRun}
+                        onGetTracks={searchGetTracksRun}
                     />
                 </Content>
             </Container>
@@ -61,7 +63,8 @@ export default connect(
         bindActionCreators(
             {
                 searchQueryRun: searchActions.search.query.run,
-                searchGetAlbumsRun: searchActions.search.getAlbums.run
+                searchGetAlbumsRun: searchActions.search.getAlbums.run,
+                searchGetTracksRun: searchActions.search.getTracks.run
             },
             dispatch
         )

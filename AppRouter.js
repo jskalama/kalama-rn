@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import PlayerScene from './scenes/PlayerScene';
-import SearchScene from './scenes/SearchScene';
 import AlbumsScene from './scenes/AlbumsScene';
+import SearchScene from './scenes/SearchScene';
+import TracksScene from './scenes/TracksScene';
 export default class AppRouter extends Component {
     render() {
         return (
@@ -20,9 +20,9 @@ export default class AppRouter extends Component {
                         title="Albums"
                     />
                     <Scene
-                        key="player"
-                        component={PlayerScene}
-                        title="Player"
+                        key="tracks"
+                        component={TracksScene}
+                        title="Tracks"
                     />
                 </Scene>
             </Router>

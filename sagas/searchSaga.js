@@ -2,7 +2,7 @@ import { delay } from 'redux-saga';
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { searchActions } from '../ducks/SearchDuck';
 import { search, getArtistAlbumsList, getTracksList } from 'kalama-api';
-import { Actions } from 'react-native-router-flux';
+import { Actions as routerActions } from 'react-native-router-flux';
 
 function* onSearchQueryRun({ payload: { q } }) {
     yield delay(600);
@@ -20,7 +20,7 @@ function* onSearchQueryRun({ payload: { q } }) {
 function* onSearchGetAlbumsRun({ payload: { artist } }) {
     try {
         yield put(searchActions.search.clearAlbums());
-        yield call(Actions.albums);
+        yield call(routerActions.albums);
         yield put(searchActions.search.getAlbums.pending());
         const res = yield call(getArtistAlbumsList, artist);
         yield put(searchActions.search.getAlbums.success(res));
@@ -32,9 +32,11 @@ function* onSearchGetAlbumsRun({ payload: { artist } }) {
 function* onSearchGetTracksRun({ payload: { resource } }) {
     try {
         yield put(searchActions.search.clearTracks());
-        // yield call(Actions.albums);
+        yield call(routerActions.tracks);
         yield put(searchActions.search.getTracks.pending());
-        const res = yield call(getTracksList, resource);
+        const res = yield call(getTracksList, resource, {
+            noResolveRedirects: true
+        });
         yield put(searchActions.search.getTracks.success(res));
     } catch (e) {
         yield put(searchActions.search.getTracks.fail(e));

@@ -13,16 +13,16 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import AlbumsList from '../components/AlbumsList';
+import TracksList from '../components/TracksList';
 import {
-    albumsListSelector,
-    isGetAlbumsPendingSelector
+    isGetTracksPendingSelector,
+    tracksListSelector
 } from '../ducks/SearchDuck';
 
-class AlbumsScene extends Component {
+class TracksScene extends Component {
     render() {
         const {
-            props: { albumsList, isGetAlbumsPending }
+            props: { tracksList, isGetTracksPending }
         } = this;
         return (
             <Container>
@@ -37,8 +37,8 @@ class AlbumsScene extends Component {
                     </Body>
                 </Header>
                 <Content padder>
-                    {isGetAlbumsPending ? <Spinner /> : null}
-                    <AlbumsList items={albumsList} />
+                    {isGetTracksPending ? <Spinner /> : null}
+                    <TracksList items={tracksList} />
                 </Content>
             </Container>
         );
@@ -47,8 +47,8 @@ class AlbumsScene extends Component {
 
 export default connect(
     state => ({
-        albumsList: albumsListSelector(state),
-        isGetAlbumsPending: isGetAlbumsPendingSelector(state)
+        tracksList: tracksListSelector(state),
+        isGetTracksPending: isGetTracksPendingSelector(state)
     }),
     dispatch => bindActionCreators({}, dispatch)
-)(AlbumsScene);
+)(TracksScene);

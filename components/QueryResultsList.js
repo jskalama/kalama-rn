@@ -52,7 +52,11 @@ const QueryResult = ({
     </>
 );
 
-export default ({ items: { artists, albums, songs }, onGetAlbums }) => (
+export default ({
+    items: { artists, albums, songs },
+    onGetAlbums,
+    onGetTracks
+}) => (
     <List>
         {artists.length ? (
             <QueryResult
@@ -68,6 +72,7 @@ export default ({ items: { artists, albums, songs }, onGetAlbums }) => (
                 items={albums}
                 defaultThumbnail={require('./default-album.png')}
                 squareThumbnail
+                onItemTap={item => onGetTracks(item)}
             />
         ) : null}
         {songs.length ? (
@@ -75,6 +80,7 @@ export default ({ items: { artists, albums, songs }, onGetAlbums }) => (
                 noThumbnail
                 header={<Text>Songs</Text>}
                 items={songs}
+                onItemTap={item => onGetTracks(item)}
             />
         ) : null}
     </List>
