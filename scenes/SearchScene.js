@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import {
     Container,
     Content,
     Header,
-    Item,
     Icon,
     Input,
+    Item,
     Spinner
 } from 'native-base';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-    searchActions,
-    queryResultSelector,
-    isQueryPendingSelector
-} from '../ducks/SearchDuck';
 import QueryResultsList from '../components/QueryResultsList';
+import {
+    isQueryPendingSelector,
+    queryResultSelector,
+    searchActions
+} from '../ducks/SearchDuck';
 
 class SearchScene extends Component {
     render() {
