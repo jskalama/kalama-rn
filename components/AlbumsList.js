@@ -1,4 +1,4 @@
-import { Body, Left, ListItem, Text, Thumbnail } from 'native-base';
+import { Body, Left, ListItem, Text, Thumbnail, Right } from 'native-base';
 import React from 'react';
 import { SectionList } from 'react-native';
 const defaultThumbnail = require('./default-album.png');
@@ -19,6 +19,11 @@ export default ({ items, onItemTap }) => (
                 <Body>
                     <Text>{item.label}</Text>
                 </Body>
+                {item.year ? (
+                    <Right>
+                        <Text>{item.year}</Text>
+                    </Right>
+                ) : null}
             </ListItem>
         )}
         renderSectionHeader={({ section: { title } }) => (
