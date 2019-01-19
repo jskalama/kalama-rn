@@ -1,4 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
+import _ from 'lodash';
+import { AlbumCategory, getArtistAlbumsList } from 'kalama-api';
 
 export const searchActions = createActions({
     Search: {
@@ -98,3 +100,35 @@ export const isGetAlbumsPendingSelector = state =>
     state.search.getAlbumsPending;
 export const isGetTracksPendingSelector = state =>
     state.search.getTracksPending;
+
+const categoryOrder = [
+    AlbumCategory.StudioAlbum,
+    AlbumCategory.EP,
+    AlbumCategory.Single,
+    AlbumCategory.ArtistCollection,
+    AlbumCategory.Demo,
+    AlbumCategory.Live,
+    AlbumCategory.Bootleg,
+    AlbumCategory.SoundTrack,
+    AlbumCategory.Mixtape,
+    AlbumCategory.DJMix,
+    AlbumCategory.VariousCollection,
+    AlbumCategory.FanCollection,
+    AlbumCategory.Other
+];
+
+export const albumsSectionsSelector = state => {
+    const categoriesDict = AlbumCategory;
+    const albums = albumsListSelector(state);
+    const byCat = _(albums)
+        .orderBy(['year'], ['desc'])
+        .groupBy('albumCategory')
+        .value();
+
+    return _(categoryOrder)
+        .map(catId => [AlbumCategory[catId], byCat[catId]])
+        .map(([category, items]) => ({ title: category, items }))
+        .filter('items')
+        .map()
+        .value();
+};
