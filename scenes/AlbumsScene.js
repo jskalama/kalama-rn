@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AlbumsList from '../components/AlbumsList';
 import {
-    albumsListSelector,
+    albumsSectionsSelector,
     isGetAlbumsPendingSelector,
     searchActions
 } from '../ducks/SearchDuck';
@@ -23,7 +23,7 @@ import {
 class AlbumsScene extends Component {
     render() {
         const {
-            props: { albumsList, isGetAlbumsPending, searchGetTracksRun }
+            props: { albumsSections, isGetAlbumsPending, searchGetTracksRun }
         } = this;
         return (
             <Container>
@@ -41,7 +41,7 @@ class AlbumsScene extends Component {
                     {isGetAlbumsPending ? <Spinner /> : null}
                     <AlbumsList
                         onItemTap={item => searchGetTracksRun(item)}
-                        items={albumsList}
+                        items={albumsSections}
                     />
                 </Content>
             </Container>
@@ -51,7 +51,7 @@ class AlbumsScene extends Component {
 
 export default connect(
     state => ({
-        albumsList: albumsListSelector(state),
+        albumsSections: albumsSectionsSelector(state),
         isGetAlbumsPending: isGetAlbumsPendingSelector(state)
     }),
     dispatch =>

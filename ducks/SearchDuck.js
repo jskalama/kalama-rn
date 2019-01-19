@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import _ from 'lodash';
 import { AlbumCategory, getArtistAlbumsList } from 'kalama-api';
+import { createSelector } from 'reselect';
 
 export const searchActions = createActions({
     Search: {
@@ -117,18 +118,19 @@ const categoryOrder = [
     AlbumCategory.Other
 ];
 
-export const albumsSectionsSelector = state => {
-    const categoriesDict = AlbumCategory;
-    const albums = albumsListSelector(state);
-    const byCat = _(albums)
-        .orderBy(['year'], ['desc'])
-        .groupBy('albumCategory')
-        .value();
+export const albumsSectionsSelector = createSelector(
+    albumsListSelector,
+    albumsList => {
+        const byCat = _(albumsList)
+            .orderBy(['year'], ['desc'])
+            .groupBy('albumCategory')
+            .value();
 
-    return _(categoryOrder)
-        .map(catId => [AlbumCategory[catId], byCat[catId]])
-        .map(([category, items]) => ({ title: category, items }))
-        .filter('items')
-        .map()
-        .value();
-};
+        return _(categoryOrder)
+            .map(catId => [AlbumCategory[catId], byCat[catId]])
+            .map(([category, items]) => ({ title: category, data: items }))
+            .filter('data')
+            .map()
+            .value();
+    }
+);

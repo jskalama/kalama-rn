@@ -1,12 +1,10 @@
 import { Body, Left, ListItem, Text, Thumbnail } from 'native-base';
 import React from 'react';
-import { FlatList } from 'react-native';
+import { SectionList } from 'react-native';
 const defaultThumbnail = require('./default-album.png');
 
 export default ({ items, onItemTap }) => (
-    <FlatList
-        data={items}
-        keyExtractor={item => item.url}
+    <SectionList
         renderItem={({ item }) => (
             <ListItem thumbnail onPress={() => onItemTap(item)}>
                 <Left>
@@ -23,5 +21,10 @@ export default ({ items, onItemTap }) => (
                 </Body>
             </ListItem>
         )}
+        renderSectionHeader={({ section: { title } }) => (
+            <Text style={{ fontWeight: 'bold' }}>{title}</Text>
+        )}
+        sections={items}
+        keyExtractor={item => item.url}
     />
 );

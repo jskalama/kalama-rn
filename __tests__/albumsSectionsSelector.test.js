@@ -28,7 +28,7 @@ describe('SearchDuck', () => {
             expect(albumsSectionsSelector(state)).toEqual([
                 {
                     title: 'StudioAlbum',
-                    items: [
+                    data: [
                         {
                             albumCategory: 2,
                             label: 'Two',
@@ -43,7 +43,7 @@ describe('SearchDuck', () => {
                 },
                 {
                     title: 'ArtistCollection',
-                    items: [
+                    data: [
                         {
                             albumCategory: 11,
                             label: 'The Best Of',
